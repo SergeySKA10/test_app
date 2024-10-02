@@ -9,13 +9,27 @@ const CurrencyConvector = () => {
     const [sum, setSum] = useState(0),
           [quotes, setQuotes] = useState({}),
           [dataTime, setDataTime] = useState(''),
-          [currency, setCurrency] = useState('');
+          [currency, setCurrency] = useState(''),
+          [btnPress, setBtnPress] = useState('false'),
+         // [button, setButton] = useState([]),
+          [btnClass, setBtnClass] = useState(['btn-outline-primary','btn-outline-primary', 'btn-outline-primary', 'btn-outline-primary']);
 
     useEffect(() => {
         getResource('https://www.cbr-xml-daily.ru/daily_json.js')
         .then(data => {
-            setQuotes(quotes => ({...data}));
             setDataTime(dataTime => data.time);
+
+            setQuotes(quotes => {
+                const newData = {};
+
+                for (let key in data) {
+                    if (key !== 'time') {
+                        newData[key] = data[key];
+                    }
+                }
+
+                return newData;
+            });
         });
     }, []);
 
@@ -44,27 +58,65 @@ const CurrencyConvector = () => {
                 break;
         }
 
-        setCurrency(currency => `${(sum * cur).toFixed(1)} ${value}`);
+        setCurrency(currency => `${(sum * cur).toFixed(1)} RUB`);
     };
+
+    const onPressBtn = (target) => {
+        setBtnPress(btnPress => true);
+        setBtnClass((btnClass) => {
+            return btnClass.map((el, i) => {
+                if (i !== +target.getAttribute('data-press')) {
+                    return 'btn-outline-primary';
+                } else {
+                    return 'btn-primary';
+                }
+            })
+        });
+    }
+
+    // useEffect(() => {
+    //     setButton(() => {
+    //         const newButton = [];
+    //         let count = 0;
+
+    //         for (let key in quotes) {
+    //             newButton.push(
+    //                 <button key={count}
+    //                         data-press={count} 
+    //                         type="button" 
+    //                         className={'btn ' + btnClass[0]} 
+    //                         onClick={(e) => {onGetCurrensy(e.target.innerText); onPressBtn(e.target)}}>
+    //                             {key.toUpperCase()}
+    //                 </button>
+    //             );
+    //             count++;
+    //         }
+
+    //         console.log(newButton);
+
+    //         return newButton;
+    //     });
+    // }, [quotes])
 
     return (
         <>
             <div className="convector m-5 border border-primary">
                 <div className="m-3">
-                    <div className="inputText">Введите сумму в рублях</div>
+                    <div className="inputText">Введите сумму в валюте</div>
                     <input className="m-auto input" type="text" onChange={(e) => onChangeValue(e.target.value)}></input>
                 </div>
 
                 <div className="value">
                     <div className="inputText">Выберете валюту</div>
                     <div className="currency border">
-                        <button type="button" className="btn btn-outline-primary" onClick={(e) => onGetCurrensy(e.target.innerText)}>EUR</button>
-                        <button type="button" className="btn btn-outline-primary" onClick={(e) => onGetCurrensy(e.target.innerText)}>USD</button>
-                        <button type="button" className="btn btn-outline-primary" onClick={(e) => onGetCurrensy(e.target.innerText)}>GBP</button>
-                        <button type="button" className="btn btn-outline-primary" onClick={(e) => onGetCurrensy(e.target.innerText)}>CNY</button>
+                        <button data-press={0} type="button" className={'btn ' + btnClass[0]} onClick={(e) => {onGetCurrensy(e.target.innerText); onPressBtn(e.target)}}>EUR</button>
+                        <button data-press={1} type="button" className={'btn ' + btnClass[1]} onClick={(e) => {onGetCurrensy(e.target.innerText); onPressBtn(e.target)}}>USD</button>
+                        <button data-press={2} type="button" className={'btn ' + btnClass[2]} onClick={(e) => {onGetCurrensy(e.target.innerText); onPressBtn(e.target)}}>GBP</button>
+                        <button data-press={3} type="button" className={'btn ' + btnClass[3]} onClick={(e) => {onGetCurrensy(e.target.innerText); onPressBtn(e.target)}}>CNY</button>
+                        {/* {button} */}
                     </div>
                     <div className="inputText mt-3">Котировка на {dataTime}:</div>
-                    <div className="result border border-primary">{currency}</div>
+                    <div className="result border border-primary">{!btnPress ? "Выберете валюту" : sum ? currency : ''}</div>
 
                 </div>
                 

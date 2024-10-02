@@ -7,8 +7,12 @@ import { Container } from "react-bootstrap";
 // import { Message, Counter } from "../render_props/Message";
 // import Form from "../ref/Form";
 // import NewForm from "../portal/NewForm";
-import Slider from "../useState/UseState";
-import CurrencyConvector from "../currency_convector/CurrencyConvector";
+// import Slider from "../useState/UseState";
+// import CurrencyConvector from "../currency_convector/CurrencyConvector";
+// import DataHooks from "../data_newHooks/data_hooks";
+// import MyForm from "../my_hooks/MyForm";
+// import Books from "../books_router/Books";
+import ResultMemo from "../memo/Memo";
 
 import './App.css';
 
@@ -46,8 +50,15 @@ function App() {
 
 			{/* <Slider/>	 */}
 
-			<CurrencyConvector/>
+			{/* <CurrencyConvector/>  {/* конвектор валют */}
 
+			{/* <MyForm/> создание собственных хуков */}
+
+			{/* <DataHooks/> */}
+
+			{/* <Books/> {/*работа с React Route v.6*/}
+
+			<ResultMemo/>
 
 		</Container>
     
