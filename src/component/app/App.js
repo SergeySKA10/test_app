@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Container } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
 
@@ -12,11 +13,19 @@ import { Container } from "react-bootstrap";
 // import DataHooks from "../data_newHooks/data_hooks";
 // import MyForm from "../my_hooks/MyForm";
 // import Books from "../books_router/Books";
-import ResultMemo from "../memo/Memo";
+// import ResultMemo from "../memo/Memo";
+// import Block from "../context/Block";
+// import Slider from '../reducer/Slider';
+// import { SliderWithFirstFetch, SliderWithSecondFetch} from "../hoc/Sliders";
+import Modal from "../react_transition_group/Modal";
 
 import './App.css';
 
 function App() {
+
+	const [showModal, setShowModal] = useState(false); // для модального окна (библиотека transition group)
+	const [showTrigger, setShowTrigger] = useState(true); // скрытие триггера вызвающего модальное окно
+
 	return (
 		<Container>
 			{/* <DynamicComponent color={'primary'}>
@@ -58,7 +67,27 @@ function App() {
 
 			{/* <Books/> {/*работа с React Route v.6*/}
 
-			<ResultMemo/>
+			{/* <ResultMemo/> */}
+			
+			{/* <Block/> */}
+
+			{/* <Slider initial={false}/> */}
+
+			{/* <SliderWithFirstFetch/>
+			<SliderWithSecondFetch/> */}
+
+			{/*использование библиотеки transition group (анимация)*/}
+
+			<Modal show={showModal} onClose={setShowModal} setShowTrigger={setShowTrigger}/>
+			{
+				showTrigger ? 
+					<button 
+						type="button" 
+						className="btn btn-warning mt-5"
+						onClick={() => setShowModal(true)}>Open Modal</button>
+					: null
+			}
+            
 
 		</Container>
     
