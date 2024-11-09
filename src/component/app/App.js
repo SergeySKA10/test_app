@@ -1,4 +1,4 @@
-import { useState } from "react";
+//import { useState } from "react";
 import { Container } from "react-bootstrap";
 // import { Button } from "react-bootstrap";
 
@@ -17,14 +17,16 @@ import { Container } from "react-bootstrap";
 // import Block from "../context/Block";
 // import Slider from '../reducer/Slider';
 // import { SliderWithFirstFetch, SliderWithSecondFetch} from "../hoc/Sliders";
-import Modal from "../react_transition_group/Modal";
+// import Modal from "../react_transition_group/Modal";
+import CustomForm from "../form_formic_yup/Form";
 
 import './App.css';
+import './app.scss';
 
 function App() {
 
-	const [showModal, setShowModal] = useState(false); // для модального окна (библиотека transition group)
-	const [showTrigger, setShowTrigger] = useState(true); // скрытие триггера вызвающего модальное окно
+	// const [showModal, setShowModal] = useState(false); // для модального окна (библиотека transition group)
+	// const [showTrigger, setShowTrigger] = useState(true); // скрытие триггера вызвающего модальное окно
 
 	return (
 		<Container>
@@ -78,7 +80,7 @@ function App() {
 
 			{/*использование библиотеки transition group (анимация)*/}
 
-			<Modal show={showModal} onClose={setShowModal} setShowTrigger={setShowTrigger}/>
+			{/* <Modal show={showModal} onClose={setShowModal} setShowTrigger={setShowTrigger}/>
 			{
 				showTrigger ? 
 					<button 
@@ -86,7 +88,12 @@ function App() {
 						className="btn btn-warning mt-5"
 						onClick={() => setShowModal(true)}>Open Modal</button>
 					: null
-			}
+			} */}
+
+			<div className="app">
+				<CustomForm/>
+			</div>
+			
             
 
 		</Container>
